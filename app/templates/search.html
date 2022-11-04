@@ -1,0 +1,120 @@
+<html>
+<body>  
+    <head><style>  
+  
+  
+ 
+ td {
+        width: 150px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+        body
+        .container {  
+            padding: 50px;  
+          background-color: #911797;  
+        }  
+          
+        input[type=text], input[type=password], textarea {  
+          width: 50%;  
+          padding: 15px;  
+          margin: 5px 0 22px 0;  
+          display: inline-block;  
+          border: none;  
+          background: #f1f1f1;  
+        }  
+        input[type=text]:focus, input[type=password]:focus {  
+            
+          outline: none;  
+        }  
+         div {  
+                    padding: 10px 0;  
+                 }  
+        hr {  
+          border: 1px solid #f1f1f1;  
+          margin-bottom: 25px;  
+        }  
+        .registerbtn {  
+          background-color: #911797;  
+          color: white;  
+          padding: 16px 20px;  
+          margin: 8px 0;  
+          border: none;  
+          cursor: pointer;  
+          width: 100%;  
+          opacity: 0.9;  
+        }  
+        .registerbtn:hover {  
+          opacity: 1;  
+        }  
+        </style></head>
+    <form action="/searching1" method="POST">
+      <div class="container">  
+      <center>  <h1> SEARCH BELOW</h1> </center>  </div></br>
+      <hr>  
+      <label>Patient Id/ firstname: </label>   
+    <input type="text" name="patient if" placeholder= "Enter patient id or first name" size="15" required /> 
+       
+    
+    <input type="submit" value="SUBMIT" name="action1"/></div></br>
+       </form>
+       <!-- <form action="/searching2" method="POST">
+    <label> Firstname: </label>    
+    <input type="text" name="Firstname" placeholder="Enter patient name" size="15"required />   
+    <input type="submit" value="VALUE2" name="action2"/></div></br>
+    
+       </form>
+       <form action="/searching3" method="POST">
+    <label >Lastname:</label>
+    <input type="text" id="lastname" name="lastname" placeholder="last name"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+      
+    
+    <input type="submit" value="VALUE3" name="action3"/></div>
+<br>
+<br>
+<br>
+<br></form> -->
+<table>
+  <thead>
+  
+    </thead>    
+    <tbody>
+     {% for row in data %}    
+     <tr>
+      <th>Patientid</th>
+      <th>firstname</th>
+      <th>middlename</th>
+      <th>lastname</th>
+      <th>email</th>
+      <th>gender</th>
+      <th>birthday</th>
+      <th>pincode</th>
+      <th>count</th>
+      <th>result</th>
+      
+  </tr>
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[4]}}</td>
+                <td>{{row[5]}}</td>
+                <td>{{row[6]}}</td>
+                <td>{{row[7]}}</td>
+                <td>{{row[14]}}</td>
+                <td>{{row[15]}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<form action="/back1" method=post>
+  <button>back</button>
+  </form>
+       
+    </body>  
+    </html> 
