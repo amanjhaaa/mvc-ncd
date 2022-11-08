@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request,flash
 from app import app
 from flask_mysqldb import MySQL 
 import MySQLdb.cursors
 
 from random import randint
+
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'aman1'
@@ -12,6 +13,7 @@ app.config['MYSQL_DB'] = 'aman'
 
 
 mysql = MySQL(app)
+
 
 
 firstname = " "
@@ -31,7 +33,7 @@ patient_id = " "
 def registration():
     global patient_id
     global firstname
-    middlename = " "
+    # middlename = " "
     lastname = " "
     email = " "
     gender = " "
@@ -43,22 +45,29 @@ def registration():
     if request.method == "POST":
     
         firstname = request.form['fname']
-        middlename = request.form['mname']
+
+        # middlename = request.form['mname']
         lastname = request.form['lname']
         email =  request.form['email']
         gender = request.form['gender']
         birthday = request.form['birthday']
         pincode = request.form["pincode"]
-        
+        if (firstname.isspace()):
+                return render_template('registration.html',
+                        error_firstname="Error: First Name can't start with a SPACE",lastname=lastname,email=email,gender=gender,
+                        birthday=birthday,pincode=pincode)
 
-
+        if (lastname.isspace()):
+                return render_template('registration.html',
+                        error_lastname="Error: Last Name can't start with a SPACE",firstname=firstname,email=email,gender=gender,
+                        birthday=birthday,pincode=pincode)
         cursor = mysql.connection.cursor()
 
-        cursor.execute(''' INSERT INTO patient_info VALUES(%s ,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(patient_id,firstname,middlename,lastname,email,gender,birthday,pincode,age,smoke,alcohol,measurement,physical,disease_family_hist,add,result))
+        cursor.execute(''' INSERT INTO patient_info VALUES(%s ,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(patient_id,firstname,lastname,email,gender,birthday,pincode,age,smoke,alcohol,measurement,physical,disease_family_hist,add,result))
         mysql.connection.commit()
         
    
-    return render_template("ncd1.html",patientid = patient_id , fname = firstname,mname= middlename,lname =  lastname,email1 = email,gender1 = gender,birthday1 = birthday,pincode1 = pincode)
+    return render_template("ncd1.html",patientid = patient_id , fname = firstname,lname =  lastname,email1 = email,gender1 = gender,birthday1 = birthday,pincode1 = pincode)
 
 
 
@@ -123,15 +132,17 @@ def result1():
 
 
 
+
 @app.route("/searching1", methods=['GET', 'POST'])
 def searching():
     if request.method == 'POST':
         x = request.form['patient if']
-    
-        query =  "SELECT * FROM patient_info WHERE patientid LIKE '%"+x+"%'OR firstname LIKE '%"+x+"%'"
+
+        query =  "SELECT * FROM patient_info WHERE patientid LIKE '%"+x+"%'OR firstname LIKE '%"+x+"%'OR lastname LIKE '%"+x+"%'"
         cursor = mysql.connection.cursor()
         cursor.execute(query)
+        numrows = int(cursor.rowcount)
         data = cursor.fetchall()
 
-        print(data)
-        return render_template("search.html",data = data)
+    # print(data)
+    return render_template("search.html",data = data , numrows = numrows  )

@@ -54,38 +54,25 @@
       <div class="container">  
       <center>  <h1> SEARCH BELOW</h1> </center>  </div></br>
       <hr>  
-      <label>Patient Id/ firstname: </label>   
-    <input type="text" name="patient if" placeholder= "Enter patient id or first name" size="15" required /> 
+      <label>Patient Id/ firstname/lastname: </label>   
+    <input type="text" name="patient if" placeholder= "Enter patient id or first name or last name" pattern="[a-zA-Z0-9]{1,50}" title="Please enter proper Data "class="form-control" required /> 
        
     
     <input type="submit" value="SUBMIT" name="action1"/></div></br>
        </form>
-       <!-- <form action="/searching2" method="POST">
-    <label> Firstname: </label>    
-    <input type="text" name="Firstname" placeholder="Enter patient name" size="15"required />   
-    <input type="submit" value="VALUE2" name="action2"/></div></br>
-    
-       </form>
-       <form action="/searching3" method="POST">
-    <label >Lastname:</label>
-    <input type="text" id="lastname" name="lastname" placeholder="last name"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
-      
-    
-    <input type="submit" value="VALUE3" name="action3"/></div>
-<br>
-<br>
-<br>
-<br></form> -->
-<table>
+
+
+       <h3>{{numrows}} Records Found</h3>
+
+       <table border="1" cellspacing="0" bgcolor="lightblue">
   <thead>
   
-    </thead>    
-    <tbody>
-     {% for row in data %}    
+      
+    
+      
      <tr>
       <th>Patientid</th>
       <th>firstname</th>
-      <th>middlename</th>
       <th>lastname</th>
       <th>email</th>
       <th>gender</th>
@@ -95,6 +82,9 @@
       <th>result</th>
       
   </tr>
+</thead> 
+<tbody>
+        {% for row in data%}
             <tr>
                 <td>{{row[0]}}</td>
                 <td>{{row[1]}}</td>
@@ -103,13 +93,22 @@
                 <td>{{row[4]}}</td>
                 <td>{{row[5]}}</td>
                 <td>{{row[6]}}</td>
-                <td>{{row[7]}}</td>
+                <!-- <td>{{row[7]}}</td> -->
+                <td>{{row[13]}}</td>
                 <td>{{row[14]}}</td>
-                <td>{{row[15]}}</td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+
+
+
+
+
+
+
+
+
 
 
 <form action="/back1" method=post>
@@ -117,4 +116,4 @@
   </form>
        
     </body>  
-    </html> 
+    </html>

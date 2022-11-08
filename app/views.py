@@ -19,8 +19,6 @@ def search():
 
 
 
-
-
 @app.route("/templates/contact.html")
 def contact():
     return render_template("contact.html")
@@ -62,3 +60,22 @@ def back():
 def back1():  
     if request.method == 'POST':
         return render_template("index.html");  
+
+@app.errorhandler(404)
+  
+# inbuilt function which takes error as parameter
+def page_not_found(e):
+  
+# defining function
+  return render_template("404.html"),404
+
+
+
+@app.errorhandler(500)
+  
+# inbuilt function which takes error as parameter
+def internal_error(e):
+  
+# defining function
+  return render_template("500.html"),500
+
